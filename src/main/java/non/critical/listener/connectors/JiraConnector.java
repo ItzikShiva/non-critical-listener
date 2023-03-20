@@ -1,4 +1,4 @@
-package non.critical.listener;
+package non.critical.listener.connectors;
 
 import non.critical.listener.jira.api.getissueresponse.GetIssueResponse;
 import non.critical.listener.jira.api.IssueService;
@@ -6,7 +6,7 @@ import okhttp3.Response;
 
 import static non.critical.listener.utils.APIUtils .responseToObject;
 
-public class JiraBugTracker implements BugTracker {
+public class JiraConnector implements Connector {
     public static IssueService issueService = new IssueService();
 
 

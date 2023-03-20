@@ -1,5 +1,5 @@
 
-package non.critical.listener.azure.api.getbugresponse;
+package non.critical.listener.tfs.api.getbugresponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

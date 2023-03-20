@@ -1,5 +1,5 @@
 
-package non.critical.listener.azure.api.getbugresponse;
+package non.critical.listener.tfs.api.getbugresponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("jsonschema2pojo")
-public class SystemCreatedBy {
+public class SystemChangedBy {
 
     @SerializedName("displayName")
     @Expose
@@ -17,7 +17,7 @@ public class SystemCreatedBy {
     private String url;
     @SerializedName("_links")
     @Expose
-    private Links links;
+    private Links__1 links;
     @SerializedName("id")
     @Expose
     private String id;
@@ -47,11 +47,11 @@ public class SystemCreatedBy {
         this.url = url;
     }
 
-    public Links getLinks() {
+    public Links__1 getLinks() {
         return links;
     }
 
-    public void setLinks(Links links) {
+    public void setLinks(Links__1 links) {
         this.links = links;
     }
 

@@ -1,5 +1,5 @@
 
-package non.critical.listener.azure.api.getbugresponse;
+package non.critical.listener.tfs.api.getbugresponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("jsonschema2pojo")
-public class Avatar {
+public class WorkItemComments {
 
     @SerializedName("href")
     @Expose

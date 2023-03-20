@@ -1,5 +1,6 @@
 package non.critical.listener;
 
+import non.critical.listener.connectors.Connector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.IInvokedMethod;
@@ -9,7 +10,7 @@ import org.testng.ITestResult;
 
 public class NonCriticalListener implements IInvokedMethodListener {
     private static final Logger logger = LogManager.getLogger(NonCriticalListener.class);
-    private final BugTracker bugTracker;
+    private final Connector connector;
 
     /**
      * this constructor called from by annotation:  @Listeners(NonCriticalListener.class)
@@ -17,11 +18,11 @@ public class NonCriticalListener implements IInvokedMethodListener {
      */
     public NonCriticalListener() {
         Configure config = new Configure();
-        this.bugTracker = config.getBugTracker();
+        this.connector = config.getBugTracker();
     }
 
     private boolean isBugOpen(String issueKey) {
-        return this.bugTracker.isBugOpen(issueKey);
+        return this.connector.isBugOpen(issueKey);
     }
 
     @Override

@@ -1,13 +1,13 @@
-package non.critical.listener;
+package non.critical.listener.connectors;
 
 //import non.critical.AzureBaseBugTests.AzureBaseBugTests;
-import non.critical.listener.azure.api.BugService;
-import non.critical.listener.azure.api.getbugresponse.GetBugResponse;
+import non.critical.listener.tfs.api.BugService;
+import non.critical.listener.tfs.api.getbugresponse.GetBugResponse;
 import okhttp3.Response;
 
 import static non.critical.listener.utils.APIUtils.responseToObject;
 
-public class AzureBugTracker  implements BugTracker {
+public class TfsConnector implements Connector {
     public static BugService bugService = new BugService();
 
     @Override

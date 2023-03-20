@@ -1,5 +1,5 @@
 
-package non.critical.listener.azure.api.getbugresponse;
+package non.critical.listener.tfs.api.getbugresponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,17 +7,17 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("jsonschema2pojo")
-public class Links__1 {
+public class Links {
 
     @SerializedName("avatar")
     @Expose
-    private Avatar__1 avatar;
+    private Avatar avatar;
 
-    public Avatar__1 getAvatar() {
+    public Avatar getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Avatar__1 avatar) {
+    public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
 

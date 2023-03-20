@@ -3,9 +3,5 @@
 /target/
 /logs/
 src/test/
-/test-outputs/
-/tests-outputs/
-/test-output/
-/tests-output/
 /.classpath
 .classpath

@@ -18,11 +18,15 @@ public class NonCriticalListener implements IInvokedMethodListener {
      */
     public NonCriticalListener() {
         Configure config = new Configure();
-        this.connector = config.getBugTracker();
+        this.connector = config.getConnector();
     }
 
     private boolean isBugOpen(String issueKey) {
         return this.connector.isBugOpen(issueKey);
+    }
+
+    private BugStatus getBugStatus(String issueKey) {
+        return this.connector.getBugStatus(issueKey);
     }
 
     @Override
@@ -40,7 +44,48 @@ public class NonCriticalListener implements IInvokedMethodListener {
         }
     }
 
-    private void caseTestSuccess(ITestResult testResult, String bugKey) {
+    /**
+     * please do this best practice (think about the log level also)
+     * and  please write me something correct and good looking english for the log also
+     */
+    private void caseTestSuccess(ITestResult testResult, String bugId) {
+        BugStatus bugStatus = getBugStatus(bugId);
+
+        switch (bugStatus) {
+            case ACTIVE:
+            case NEW:
+                logger.error("Test passed, but a related bug (" + bugId + ") is still open. Please resolve the bug and re-run the test.");
+                testResult.setStatus(ITestResult.FAILURE);
+                break;
+            case CLOSED:
+                logger.info("Test passed and related bug (" + bugId + ") is closed. Removing unneeded annotation from test.");
+                break;
+            case RESOLVED:
+                logger.error("Test passed, but a related bug (" + bugId + ") is marked as resolved. Please close the bug and remove the @NonCritical annotation from the test.");
+                testResult.setStatus(ITestResult.FAILURE);
+                break;
+        }
+    }
+//TODO - add to tests! "status resolved"
+    private void caseTestFailed(ITestResult testResult, String bugId) {
+        BugStatus bugStatus = getBugStatus(bugId);
+
+        switch (bugStatus) {
+            case ACTIVE:
+            case NEW:
+                logger.error("test originally was failed. BUG with: " + bugId + " already open. test was skipped");
+                testResult.setStatus(ITestResult.SKIP);
+                break;
+            case CLOSED:
+                logger.error("Test failed and related bug (" + bugId + ") is closed. Investigation is required for the related bug (" + bugId + ").");
+                break;
+            case RESOLVED:
+                logger.warn("Test failed, but a related bug (" + bugId + ") is marked as resolved. Please verify that the bug has been properly resolved.");
+                break;
+        }
+    }
+
+    private void caseTestSuccess_old(ITestResult testResult, String bugKey) {
         if (isBugOpen(bugKey)) {
             logger.error("test originally was passed. and BUG with: " + bugKey + " is open. please close that bug!");
             testResult.setStatus(ITestResult.FAILURE);
@@ -49,13 +94,17 @@ public class NonCriticalListener implements IInvokedMethodListener {
         }
     }
 
-    private void caseTestFailed(ITestResult testResult, String bugKey) {
+    private void caseTestFailed_old(ITestResult testResult, String bugKey) {
         if (isBugOpen(bugKey)) {
             logger.error("test originally was failed. BUG with: " + bugKey + " already open. test was skipped");
             testResult.setStatus(ITestResult.SKIP);
         } else {
             logger.error("investigation for the test and bug: " + bugKey + " required!");
         }
+    }
+
+    public enum BugStatus {
+        ACTIVE, CLOSED, RESOLVED, NEW
     }
 
 

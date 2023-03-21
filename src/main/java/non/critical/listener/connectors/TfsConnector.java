@@ -21,7 +21,6 @@ public class TfsConnector implements Connector {
         }
 
         TfsGetBugResponse getBugResponse = responseToObject(response, TfsGetBugResponse.class);
-//        TfsGetBugResponse getBugResponse = getBugResponse(response);
         String bugStatus = getBugResponse.getFields().getSystemState();
 
         switch (bugStatus) {

@@ -11,7 +11,6 @@ import org.testng.ITestResult;
 public class NonCriticalListener implements IInvokedMethodListener {
     private static final Logger logger = LogManager.getLogger(NonCriticalListener.class);
     private final Connector connector;
-
     /**
      * this constructor called from by annotation:  @Listeners(NonCriticalListener.class)
      * from testNG library: import org.testng.annotations.Listeners; in the test file that use the @NonCriticalListener
@@ -29,21 +28,16 @@ public class NonCriticalListener implements IInvokedMethodListener {
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
         if (method.getTestMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(NonCritical.class)) {
 
-//            NonCritical annotation = ;
-            String bugKey = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(NonCritical.class).bugKey();
+            String bugId = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(NonCritical.class).bugId();
 
             if (testResult.getStatus() == ITestResult.SUCCESS) {
-                handleSuccessfulTest(testResult, bugKey);
+                handleSuccessfulTest(testResult, bugId);
             } else {
-                handleFailureTest(testResult, bugKey);
+                handleFailureTest(testResult, bugId);
             }
         }
     }
 
-    /**
-     * please do this best practice (think about the log level also)
-     * and  please write me something correct and good looking english for the log also
-     */
     private void handleSuccessfulTest(ITestResult testResult, String bugId) {
         BugStatus bugStatus = getBugStatus(bugId);
 
@@ -87,6 +81,4 @@ public class NonCriticalListener implements IInvokedMethodListener {
     public enum BugStatus {
         ACTIVE, CLOSED, RESOLVED, NEW, DONE, TO_DO, IN_PROGRESS
     }
-
-
 }

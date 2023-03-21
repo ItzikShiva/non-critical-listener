@@ -1,8 +1,7 @@
 package non.critical.listener.connectors;
 
-import non.critical.listener.GetBugResponse;
-import non.critical.listener.bugservice.BugService;
 import non.critical.listener.NonCriticalListener;
+import non.critical.listener.bugservice.BugService;
 import non.critical.listener.bugservice.JiraBugService;
 import non.critical.listener.jira.api.getbugresponse.JiraGetBugResponse;
 import okhttp3.Response;
@@ -11,8 +10,6 @@ import static non.critical.listener.utils.APIUtils.responseToObject;
 
 public class JiraConnector implements Connector {
     public static BugService bugService = new JiraBugService();
-
-
 
 
     @Override

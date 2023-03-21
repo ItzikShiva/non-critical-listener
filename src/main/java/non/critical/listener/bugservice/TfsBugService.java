@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import static non.critical.listener.Configure.TOKEN;
 import static non.critical.listener.Configure.baseUrl;
-import static non.critical.listener.utils.APICommonUtils.executeMethod;
+import static non.critical.listener.utils.APIUtils.executeMethod;
 
 
 public class TfsBugService implements BugService {

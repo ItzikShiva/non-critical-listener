@@ -6,7 +6,7 @@
 
     <groupId>io.github.itzikshiva</groupId>
     <artifactId>non-critical-listener</artifactId>
-    <version>1</version>
+    <version>1.0</version>
 
     <name>non-critical-listener</name>
     <url>https://github.com/ItzikShiva/non-critical-listener</url>

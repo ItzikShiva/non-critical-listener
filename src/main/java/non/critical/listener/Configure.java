@@ -4,9 +4,7 @@ import non.critical.listener.connectors.Connector;
 import non.critical.listener.connectors.JiraConnector;
 import non.critical.listener.connectors.TfsConnector;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 public class Configure {
@@ -25,6 +23,21 @@ public class Configure {
      * static initializer block is executed when the class is loaded into memory, before any instance of the class is created.
      */
     static {
+        System.getProperty("java.class.path");
+        try (InputStream input = new FileInputStream(new File("src/main/resources/noncritical.config.properties"))) {
+
+            if (input != null) {
+                PROPERTIES.load(input);
+                setParamsFromConfigFile();
+            } else {
+                throw new FileNotFoundException("Configuration file '" + CONFIG_FILE_NAME + "' not found in the classpath");
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException("Error loading configuration file", ex);
+        }
+    }
+
+    public static void init(){
         try (InputStream input = Configure.class.getClassLoader().getResourceAsStream(CONFIG_FILE_NAME)) {
             if (input != null) {
                 PROPERTIES.load(input);
@@ -37,7 +50,9 @@ public class Configure {
         }
     }
 
+
     public Configure() {
+//        init();
         setTicketSystem();
         setBaseUrl();
         setToken();

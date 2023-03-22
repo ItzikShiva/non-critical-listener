@@ -1,21 +1,44 @@
 package non.critical.listener.utils;
 
-import non.critical.listener.jira.api.issuerequest.*;
+import com.google.gson.Gson;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import static non.critical.listener.utils.IssueConstants.*;
-import static non.critical.listener.utils.APICommonUtils.gson;
 
 public class APIUtils {
     private static final Logger logger = LogManager.getLogger(APIUtils.class);
 
+    public static Gson gson = new Gson();
+    public static OkHttpClient client = new OkHttpClient();
+
+    /**
+     * this method execute http request with okHttp client
+     * get request and logger as parameter
+     * execute the request, log and return response as Response type
+     **/
+    public static Response executeMethod(Request request, Logger logger) {
+        logger.info("Performing " + request.method() + " request to: " + request.url());
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            logger.info("got response from server");
+        } catch (IOException e) {
+            logger.error("error in getting response from server", e);
+        }
+        return response;
+    }
+
+    /**
+     This method is used to parse a response body into a Java object of a specified class.
+     @param response the HTTP response to parse
+     @param clazz the class of the Java object to parse the response into
+     @return a Java object of the specified class, populated with data from the response body
+     */
     public static <T> T responseToObject(Response response, Class<T> clazz) {
         ResponseBody responseBody = response.body();
         String jsonString = null;
@@ -28,38 +51,5 @@ public class APIUtils {
 
         T responseObject = gson.fromJson(jsonString, clazz);
         return responseObject;
-    }
-
-    /**
-     * this method insert values for CreateIssueRequest,the second parameter - true for valid values, false for invalid values;
-     * third parameter - optional - summary
-     * (use by createIssueTests and EditIssueTests)
-     */
-    public static void insertValuesForIssueRequest(IssueRequest issueRequest, boolean validIssueType) {
-        insertValuesForIssueRequest(issueRequest, validIssueType, SUMMARY);
-    }
-
-    public static void insertValuesForIssueRequest(IssueRequest issueRequest, boolean validIssueType, String summary) {
-        Fields fields = new Fields();
-        fields.setSummary(summary);
-        if (validIssueType) {
-            fields.setIssuetype(new Issuetype(ISSUE_TYPE));
-        } else {
-            fields.setIssuetype(new Issuetype("10070"));
-        }
-        fields.setProject(new Project(PROJECT_ID));
-        fields.setCustomfield_10020(CUSTOM_FIELD_10020_ID);
-        fields.setReporter(new Reporter(REPORTER_ID));
-        fields.setLabels(LABELS);
-        fields.setAssignee(new Assignee(ASSIGNEE_ID));
-        issueRequest.setFields(fields);
-        Description description = new Description();
-        description.setType(DESCRIPTION_TYPE);
-        description.setVersion(DESCRIPTION_VERSION);
-        fields.setDescription(description);
-        List<Content> content = Arrays.asList(new Content(DESCRIPTION_CONTENT_TYPE));
-        description.setContent(content);
-        List<Content__1> contents__1 = Arrays.asList(new Content__1(DESCRIPTION_CONTENT__1_TEXT, DESCRIPTION_CONTENT__1_TYPE));
-        content.get(0).setContent(contents__1);
     }
 }

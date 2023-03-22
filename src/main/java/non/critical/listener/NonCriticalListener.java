@@ -20,8 +20,8 @@ public class NonCriticalListener implements IInvokedMethodListener {
         this.connector = config.getConnector();
     }
 
-    private BugStatus getBugStatus(String issueKey) {
-        return this.connector.getBugStatus(issueKey);
+    private BugStatus getBugStatus(String bugId) {
+        return this.connector.getBugStatus(bugId);
     }
 
     @Override
@@ -66,11 +66,13 @@ public class NonCriticalListener implements IInvokedMethodListener {
         switch (bugStatus) {
             case ACTIVE:
             case NEW:
+            case TO_DO:
                 logger.error("test originally was failed. BUG with: " + bugId + " already open. test was skipped");
                 testResult.setStatus(ITestResult.SKIP);
                 break;
             case CLOSED:
-                logger.error("Test failed and related bug (" + bugId + ") is closed. Investigation is required for the related bug (" + bugId + ").");
+            case DONE:
+                logger.error("Test failed and related bug (" + bugId + ") is closed/done. Investigation is required for the related bug (" + bugId + ").");
                 break;
             case RESOLVED:
                 logger.warn("Test failed, but a related bug (" + bugId + ") is marked as resolved. Please verify that the bug has been properly resolved.");

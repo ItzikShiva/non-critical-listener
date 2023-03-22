@@ -1,14 +1,12 @@
 package non.critical.listener.bugservice;
 
 
+import non.critical.listener.Configure;
+import non.critical.listener.utils.APIUtils;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import static non.critical.listener.Configure.TOKEN;
-import static non.critical.listener.Configure.baseUrl;
-import static non.critical.listener.utils.APIUtils.executeMethod;
 
 public class JiraBugService implements BugService {
     private static final Logger logger = LogManager.getLogger(JiraBugService.class);
@@ -16,10 +14,10 @@ public class JiraBugService implements BugService {
     public Response getBug(String bugId) {
         logger.info("getting Issue from server");
 
-        Request request = new Request.Builder().url(baseUrl + bugId).addHeader("Accept", "application/json")
-                .addHeader("Authorization", "Bearer " + TOKEN).build();
+        Request request = new Request.Builder().url(Configure.baseUrl + bugId).addHeader("Accept", "application/json")
+                .addHeader("Authorization", Configure.TOKEN).build();
 
-        return executeMethod(request, logger);
+        return APIUtils.executeMethod(request, logger);
     }
 
 }

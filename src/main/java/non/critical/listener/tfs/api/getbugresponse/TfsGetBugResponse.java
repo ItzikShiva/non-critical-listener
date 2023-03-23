@@ -3,12 +3,11 @@ package non.critical.listener.tfs.api.getbugresponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import non.critical.listener.GetBugResponse;
 
 import javax.annotation.Generated;
 
 @Generated("jsonschema2pojo")
-public class TfsGetBugResponse extends GetBugResponse {
+public class TfsGetBugResponse {
 
     @SerializedName("id")
     @Expose

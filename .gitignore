@@ -2,8 +2,9 @@
 /.settings/
 /target/
 /logs/
+src/main/resources/
 src/test/
 /.classpath
 .classpath
 pom.xml.versionsBackup
-src/main/resources/
+src/main/resources/noncritical.config.properties

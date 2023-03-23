@@ -11,6 +11,7 @@ import org.testng.ITestResult;
 public class NonCriticalListener implements IInvokedMethodListener {
     private static final Logger logger = LogManager.getLogger(NonCriticalListener.class);
     private final Connector connector;
+
     /**
      * this constructor called from by annotation:  @Listeners(NonCriticalListener.class)
      * from testNG library: import org.testng.annotations.Listeners; in the test file that use the @NonCriticalListener
@@ -29,7 +30,7 @@ public class NonCriticalListener implements IInvokedMethodListener {
         if (method.getTestMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(NonCritical.class)) {
 
             String bugId = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(NonCritical.class).bugId();
-
+            logger.info("start non-critical-listener, with bug id: " + bugId);
             if (testResult.getStatus() == ITestResult.SUCCESS) {
                 handleSuccessfulTest(testResult, bugId);
             } else {
@@ -51,7 +52,7 @@ public class NonCriticalListener implements IInvokedMethodListener {
                 break;
             case CLOSED:
             case DONE:
-                logger.info("Test passed and related bug (" + bugId + ") is closed. Removing unneeded annotation from test.");
+                logger.warn("Test passed and related bug (" + bugId + ") is closed. Removing unneeded annotation from test.");
                 break;
             case RESOLVED:
                 logger.error("Test passed, but a related bug (" + bugId + ") is marked as resolved. Please close the bug and remove the @NonCritical annotation from the test.");
@@ -80,7 +81,5 @@ public class NonCriticalListener implements IInvokedMethodListener {
         }
     }
 
-    public enum BugStatus {
-        ACTIVE, CLOSED, RESOLVED, NEW, DONE, TO_DO, IN_PROGRESS
-    }
+
 }

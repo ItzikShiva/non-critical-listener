@@ -2,12 +2,11 @@ package non.critical.listener.jira.api.getbugresponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import non.critical.listener.GetBugResponse;
 
 import javax.annotation.Generated;
 
 @Generated("jsonschema2pojo")
-public class JiraGetBugResponse extends GetBugResponse {
+public class JiraGetBugResponse {
 
     @SerializedName("expand")
     @Expose

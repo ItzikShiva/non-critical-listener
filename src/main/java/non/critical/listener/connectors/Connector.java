@@ -1,5 +1,6 @@
 package non.critical.listener.connectors;
 
+import non.critical.listener.BugStatus;
 import non.critical.listener.NonCriticalListener;
 
 public interface Connector {
@@ -10,5 +11,5 @@ public interface Connector {
      * else it checks if the bug has a resolution or not. If the bug has a resolution, it means that it is DONE, so the method returns false.
      * If the issue does not have a resolution, it means that it is OPEN, so the method returns true.
      */
-    NonCriticalListener.BugStatus getBugStatus(String bugId);
+    BugStatus getBugStatus(String bugId);
 }

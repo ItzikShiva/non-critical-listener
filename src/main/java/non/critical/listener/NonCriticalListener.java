@@ -39,6 +39,14 @@ public class NonCriticalListener implements IInvokedMethodListener {
         }
     }
 
+
+    /**
+     * This method handles the outcome of a successful test, taking into account the bug status that is provided through the bugId in the
+     * @NonCritical annotation. Depending on the comparison between the test result and the bug status,
+     * it either logs a message and / or changes the test result.
+     * @param bugId - required from annotation
+     * @param testResult
+     */
     private void handleSuccessfulTest(ITestResult testResult, String bugId) {
         BugStatus bugStatus = getBugStatus(bugId);
 
@@ -61,6 +69,14 @@ public class NonCriticalListener implements IInvokedMethodListener {
         }
     }
 
+
+    /**
+     * This method handles the outcome of a failure test, taking into account the bug status that is provided through the bugId in the
+     * @NonCritical annotation. Depending on the comparison between the test result and the bug status,
+     * it either logs a message and / or changes the test result.
+     * @param bugId - required from annotation
+     * @param testResult
+     */
     private void handleFailureTest(ITestResult testResult, String bugId) {
         BugStatus bugStatus = getBugStatus(bugId);
 

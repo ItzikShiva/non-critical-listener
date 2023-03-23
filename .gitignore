@@ -2,6 +2,7 @@
 /.settings/
 /target/
 /logs/
+src/main/resources/
 src/test/
 /.classpath
 .classpath

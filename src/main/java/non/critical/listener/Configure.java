@@ -82,6 +82,7 @@ public class Configure {
         } else if ("Tfs".equals(TICKET_SYSTEM)) {
             connector = new TfsConnector();
         } else {
+            logger.error("the ticket system name in configure file: \"" + TICKET_SYSTEM + "\" is incorrect. please follow the instruction in README.md file");
             throw new IllegalArgumentException("Unsupported ticketing system: " + TICKET_SYSTEM);
         }
     }

@@ -7,4 +7,4 @@ src/test/
 .classpath
 pom.xml.versionsBackup
 src/main/resources/noncritical.config.properties
-src/main/java/non/critical/listener/notInUse
+src/main/java/non/critical/listener/notInUse/

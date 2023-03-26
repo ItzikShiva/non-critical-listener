@@ -1,7 +1,7 @@
 /.idea/
 /.settings/
-/target/
 /logs/
+/target/
 src/test/
 /.classpath
 .classpath

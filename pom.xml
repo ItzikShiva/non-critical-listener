@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.itzikshiva</groupId>
+    <groupId>io.automat.ct</groupId>
     <artifactId>non-critical-listener</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
 
     <name>non-critical-listener</name>
     <url>https://github.com/ItzikShiva/non-critical-listener</url>
